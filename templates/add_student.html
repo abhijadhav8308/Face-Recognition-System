@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>Add New Student</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        var msg = {{ message | tojson }};
+        alert(msg);
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% extends "header.html" %}
+
+	{% block content %}
+    <div class="container">
+        <h1>Add Student</h1>
+        <div class="as-subcontainer">
+        <form action="" method="post">
+            <div class="input_info">
+                <div class="roll_div">
+                    <label for="roll_no">Roll No</label>
+                    <input type="number" name="roll_no" id="roll_no" required/>
+                </div>
+                <div class="input_name">
+                    <label for="stud_name">Name</label>
+                    <input type="text" name="stud_name" required/>
+                </div>
+                <div class="input_email">
+                    <label for="stud_email">Email</label>
+                    <input type="email" name="stud_email" required/>
+                </div>
+                <div class="input_number">
+                    <label for="stud_number">Number</label>
+                    <input type="number"  min="999999999" max="9999999999" name="stud_number" required/>
+                </div>
+                <button type="submit" id="btn-en" class="submit-btn">Submit</button>
+            </div>
+        </form> 
+        <div class="save_images">
+            <img src="../static/webcam.jpg" id="cameraview">
+            <button type="submit" class="camera_btn" id="btn-cam" onclick="showCamera()">Turn On/Off Camera</button>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript">
+        function showCamera() {
+            var cam = document.getElementById("cameraview");
+            console.log(cam.src);
+            if (cam.src.includes("http://127.0.0.1:5000/video_feed")) {
+                cam.src = "http://127.0.0.1:5000/static/webcam.jpg";
+            } else {
+                var roll = document.getElementById("roll_no").value;
+                cam.src = "video_feed?roll=" + roll;
+            }
+
+        }
+    </script>
+    {% endblock %}
+</body>
+
+</html>

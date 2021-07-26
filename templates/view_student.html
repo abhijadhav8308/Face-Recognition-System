@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>View Students</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+
+<body>
+  {% extends "header.html" %}
+
+	{% block content %}
+    <div class="container" style="overflow-x:auto;">
+      <h1> View Students </h1>
+      <form method="post" action="{{url_for('update_info')}}">
+        <table id="students">
+            <tr>
+              <th>Roll No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Number</th>
+              <th>Action</th>
+            </tr>
+            {% for row in range(result|length) %}
+            <tr>
+              <td name="roll_no">{{result[row][0]}}</td>
+              <td name="name">{{result[row][1]}}</td>
+              <td name="email">{{result[row][2]}}</td>
+              <td name="number">{{result[row][3]}}</td>
+              <td><input type="submit" name="update_btn" value="Edit({{result[row][0]}})">   &nbsp;    <input type="submit" name="update_btn" value="Delete({{result[row][0]}})"></td>
+            </tr>
+            {% endfor %}
+      </table>
+      </form>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

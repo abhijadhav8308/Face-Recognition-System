@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>Add New Student</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        var msg = {{ message | tojson }};
+        alert(msg);
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% extends "header.html" %}
+
+	{% block content %}
+    <div class="container">
+        <div class="att-subcontainer">
+        <div class="camera_panel">
+            <img src="../static/webcam.jpg" id="cameraview2">
+            <button type="submit" id="btn-cam2" class="camera_btn" onclick="showCamera()">Turn On/Off Camera</button>
+            <div class="btn-div">
+            <form method="post">
+                <button type="submit" class="submit-btn-bg">Mark Attendance</button>
+            </form>
+        </div>
+        </div>
+        <div class="show_attendance">
+            <h1>Attendace Details</h1>
+            <table id="students">
+                <tr>
+                  <th>Roll No</th>
+                  <th>Name</th>
+                  <th>Date</th>
+                </tr>
+                {% for row in data %}
+                <tr>
+                  <td>{{row[0]}}</td>
+                  <td>{{row[1]}}</td>
+                  <td>{{row[2]}}</td>
+                </tr>
+                {% endfor %}
+    </div>
+</div>
+    </div>
+    <script type="text/javascript">
+        function showCamera() {
+            var cam = document.getElementById("cameraview2");
+            if (cam.src.includes("http://127.0.0.1:5000/video_feed")) {
+                cam.src = "http://127.0.0.1:5000/static/webcam.jpg";
+            } else {
+                cam.src = "video_feed?roll=-1";
+            }
+
+        }
+    </script>
+    {% endblock %}
+</body>
+
+</html>
